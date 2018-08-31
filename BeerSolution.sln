@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27703.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeerLib", "BeerLib\BeerLib.csproj", "{B56B91B3-0B66-4343-81D8-4D3CDA5FFAD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TesterConsole", "TesterConsole\TesterConsole.csproj", "{D165C219-4AD2-4D61-820A-C77F82527AF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KBeerDiscordBot", "KBeerDiscordBot\KBeerDiscordBot.csproj", "{C64C4116-3B55-4CA1-9B84-3F4835B4EA20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B56B91B3-0B66-4343-81D8-4D3CDA5FFAD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B56B91B3-0B66-4343-81D8-4D3CDA5FFAD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B56B91B3-0B66-4343-81D8-4D3CDA5FFAD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B56B91B3-0B66-4343-81D8-4D3CDA5FFAD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D165C219-4AD2-4D61-820A-C77F82527AF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D165C219-4AD2-4D61-820A-C77F82527AF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D165C219-4AD2-4D61-820A-C77F82527AF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D165C219-4AD2-4D61-820A-C77F82527AF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C64C4116-3B55-4CA1-9B84-3F4835B4EA20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C64C4116-3B55-4CA1-9B84-3F4835B4EA20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C64C4116-3B55-4CA1-9B84-3F4835B4EA20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C64C4116-3B55-4CA1-9B84-3F4835B4EA20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
