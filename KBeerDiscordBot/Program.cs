@@ -44,7 +44,7 @@ namespace KBeerDiscordBot {
             discord = new DiscordClient(dConfig);
 
             commands = discord.UseCommandsNext(new CommandsNextConfiguration {
-                StringPrefix = jConfig.CmdPrefix = "."
+                StringPrefix = jConfig.CmdPrefix + "."
             });
             commands.RegisterCommands<CommandManager>();
 
