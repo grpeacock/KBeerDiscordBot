@@ -30,7 +30,7 @@ namespace KBeerDiscordBot {
             string response = await client.GetStringAsync(System.Uri.EscapeUriString(sb.ToString()));
 
             dynamic res = JsonConvert.DeserializeObject(response);
-            if (res.response.count > 0) {
+            if (res.response.beers.count > 0) {
                 dynamic beerInfo = res.response.beers.items[0];
                 SimpleBeer beer = new SimpleBeer();
                 beer.Name = beerInfo.beer.beer_name;
