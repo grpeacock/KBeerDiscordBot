@@ -1,0 +1,6 @@
+{
+  "UntappdClientID": "CHANGE THIS",
+  "UntappdClientSecret": "CHANGE THIS",
+  "DiscordToken": "CHANGE THIS",
+  "CmdPrefix": "beer"
+}
