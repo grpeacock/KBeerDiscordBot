@@ -15,6 +15,7 @@ namespace KBeerDiscordBot {
         public static CommandsNextModule commands;
         //public static InteractivityModule interactivity;
         public static ConfigJson jConfig;
+        public static UntappdAPI BeerAPI;
 
 
         static void Main(string[] args) {
@@ -31,10 +32,10 @@ namespace KBeerDiscordBot {
 
             jConfig = JsonConvert.DeserializeObject<ConfigJson>(json);
 
-            DiscordConfiguration dConfig;
-
+            BeerAPI = new UntappdAPI(jConfig.ClientID, jConfig.ClientSecret);
+            
             // Set up the client connection
-
+            DiscordConfiguration dConfig;
             dConfig = new DiscordConfiguration {
                 Token = jConfig.DiscordToken,
                 TokenType = TokenType.Bot,
