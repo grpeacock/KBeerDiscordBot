@@ -1,6 +1,12 @@
 {
-  "UntappdClientID": "CHANGE THIS",
-  "UntappdClientSecret": "CHANGE THIS",
-  "DiscordToken": "CHANGE THIS",
-  "CmdPrefix": "beer"
+  "discord": {
+    "token": "CHANGE THIS",
+    "commandPrefix": "beer"
+  },
+  "untappd": {
+    "client": {
+      "id": "CHANGE THIS",
+      "secret": "CHANGE THIS"
+    }
+  }
 }

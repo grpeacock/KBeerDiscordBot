@@ -1,80 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DSharpPlus;
-using DSharpPlus.Interactivity;
+﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
-using Newtonsoft.Json;
+using KBeerDiscordBot.Abstractions;
+using KBeerDiscordBot.Discord;
+using KBeerDiscordBot.Untappd;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.Threading.Tasks;
 
-namespace KBeerDiscordBot {
-    class Program {
+namespace KBeerDiscordBot
+{
+    class Program
+    {
+        static async Task Main(string[] args)
+        {
+            // Load Configuration
+            var configuration = new ConfigurationBuilder()
+                    .AddJsonFile("config.json")
+                    .Build();
 
-        public static DiscordClient discord;
-        public static CommandsNextModule commands;
-        //public static InteractivityModule interactivity;
-        public static ConfigJson jConfig;
-        public static UntappdAPI BeerAPI;
-
-
-        static void Main(string[] args) {
-            MainAsync(args).ConfigureAwait(false).GetAwaiter().GetResult();
-        }
-
-        static async Task MainAsync(String[] args) {
-
-            //Load config
-            string json = "";
-            using (var fs = System.IO.File.OpenRead("config.json"))
-            using (var sr = new System.IO.StreamReader(fs, new System.Text.UTF8Encoding(false)))
-                json = await sr.ReadToEndAsync();
-
-            jConfig = JsonConvert.DeserializeObject<ConfigJson>(json);
-
-            BeerAPI = new UntappdAPI(jConfig.ClientID, jConfig.ClientSecret);
-            
-            // Set up the client connection
-            DiscordConfiguration dConfig;
-            dConfig = new DiscordConfiguration {
-                Token = jConfig.DiscordToken,
-                TokenType = TokenType.Bot,
-                UseInternalLogHandler = true,
-                LogLevel = LogLevel.Debug
-            };
-            discord = new DiscordClient(dConfig);
-
-            commands = discord.UseCommandsNext(new CommandsNextConfiguration {
-                StringPrefix = jConfig.CmdPrefix + "."
+            // Define services
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddSingleton<IConfigurationRoot>(configuration);
+            serviceCollection.AddSingleton<UntappdApiCredentials>(sp =>
+            {
+                var config = sp.GetRequiredService<IConfigurationRoot>();
+                return new UntappdApiCredentials
+                {
+                    ClientId = config["untappd:client:id"],
+                    ClientSecret = config["untappd:client:secret"]
+                };
             });
-            commands.RegisterCommands<CommandManager>();
+            serviceCollection.AddSingleton<IBeerService, UntappdBeerService>();
+            var serviceProvider = serviceCollection.BuildServiceProvider();
 
-            await discord.ConnectAsync();
+            // Set up the client connection
+            var discordConfig = new DiscordConfiguration
+            {
+                Token = configuration["discord:token"],
+                TokenType = TokenType.Bot
+            };
+            var discordClient = new DiscordClient(discordConfig);
+
+            var commandsNextModule = discordClient.UseCommandsNext(new CommandsNextConfiguration
+            {
+                StringPrefixes = new[] { configuration["discord:commandPrefix"] + ".", "." },
+                Services = serviceProvider
+            });
+            commandsNextModule.RegisterCommands<SearchCommandModule>();
+
+            await discordClient.ConnectAsync();
             await Task.Delay(-1);
-        }
-
-        public static void SaveConfig() {
-            JsonSerializer ser = new JsonSerializer();
-            using (System.IO.StreamWriter sw = new System.IO.StreamWriter("config.json")) {
-                using (JsonWriter writer = new JsonTextWriter(sw)) {
-                    ser.Serialize(writer, jConfig);
-                }
-            }
-        }
-
-        public struct ConfigJson {
-
-            [JsonProperty("UntappdClientID")]
-            public string ClientID { get; set; }
-
-            [JsonProperty("UntappdClientSecret")]
-            public string ClientSecret { get; set; }
-
-            [JsonProperty("DiscordToken")]
-            public string DiscordToken { get; set; }
-
-            [JsonProperty("CmdPrefix")]
-            public string CmdPrefix { get; set; }
         }
     }
 }
