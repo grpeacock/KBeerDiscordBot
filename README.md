@@ -5,4 +5,4 @@ The bot taps into the Discord plugin API using the DSharpPlus (available on Nuge
 
 This project was made as a bit of a "portfolio project" since I realized I didn't have any shareable C# experience. The goal was to show basic knowledge of C# and the ability to work with async programming and 3rd party APIs.
 
-License: MIT 2018 Gregory R. Peacock (https://github.com/grpeacock/KBeerDiscordBot/blob/master/KBeerDiscordBot/LICENSE)
+License: MIT 2021 Gregory R. Peacock (https://github.com/grpeacock/KBeerDiscordBot/blob/master/KBeerDiscordBot/LICENSE)
