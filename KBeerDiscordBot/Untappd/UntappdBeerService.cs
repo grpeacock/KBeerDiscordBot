@@ -1,6 +1,7 @@
 ﻿using KBeerDiscordBot.Abstractions;
 using KBeerDiscordBot.Models;
 using Newtonsoft.Json;
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,6 +25,11 @@ namespace KBeerDiscordBot.Untappd
 
         public async Task<Beer> SearchSingleBeerAsync(string search)
         {
+            if (string.IsNullOrEmpty(search))
+            {
+                return null;
+            }
+
             StringBuilder sb = new StringBuilder();
             sb.Append("https://api.untappd.com/v4/search/beer?");
             sb.Append("client_id=" + _clientId);
